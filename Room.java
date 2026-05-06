@@ -1,114 +1,83 @@
 /**
  * Room.java
- * This class represents a hotel room.
- * It contains information about the room type, price, and availability.
+ * Represents a hotel room.
  */
 
 public class Room {
     
-    // Private attributes for encapsulation
     private int roomNumber;      // Unique room number
-    private String roomType;     // Type of room (e.g., Single, Double, Suite)
-    private double pricePerNight; // Price per night in dollars
-    private boolean isAvailable;  // Availability status of the room
-    private int capacity;        // Maximum number of guests allowed
+    private String roomType;     // Type of room
+    private double pricePerNight; // Price per night
+    private boolean isAvailable;  // Availability status
     
     /**
-     * Default constructor - initializes with default values
+     * Default constructor
      */
     public Room() {
         this.roomNumber = 0;
         this.roomType = "Standard";
         this.pricePerNight = 100.0;
         this.isAvailable = true;
-        this.capacity = 2;
     }
     
     /**
-     * Parameterized constructor - initializes with given values
-     * @param roomNumber The unique room number
-     * @param roomType The type of room
-     * @param pricePerNight The price per night
-     * @param capacity The maximum capacity of guests
+     * Parameterized constructor
      */
-    public Room(int roomNumber, String roomType, double pricePerNight, int capacity) {
+    public Room(int roomNumber, String roomType, double pricePerNight) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.pricePerNight = pricePerNight;
-        this.capacity = capacity;
-        this.isAvailable = true; // By default, room is available
+        this.isAvailable = true;
     }
     
     /**
-     * Method to display room information
+     * Display room information
      */
     public void displayInfo() {
-        System.out.println("=== ROOM INFORMATION ===");
-        System.out.println("Room Number: " + roomNumber);
-        System.out.println("Room Type: " + roomType);
-        System.out.println("Price per Night: $" + pricePerNight);
-        System.out.println("Capacity: " + capacity + " guests");
+        System.out.println("=== ROOM ===");
+        System.out.println("Number: " + roomNumber);
+        System.out.println("Type: " + roomType);
+        System.out.println("Price: $" + pricePerNight + "/night");
         System.out.println("Status: " + (isAvailable ? "Available" : "Booked"));
-        System.out.println("========================");
+        System.out.println("==========");
     }
     
     /**
-     * Method to book the room
-     * @return true if booking successful, false if room is already booked
+     * Book the room
      */
     public boolean bookRoom() {
         if (isAvailable) {
             isAvailable = false;
-            System.out.println("Room " + roomNumber + " has been booked successfully!");
+            System.out.println("Room " + roomNumber + " booked!");
             return true;
-        } else {
-            System.out.println("Sorry, Room " + roomNumber + " is already booked.");
-            return false;
         }
+        System.out.println("Room " + roomNumber + " is already booked.");
+        return false;
     }
     
     /**
-     * Method to check out and make room available again
+     * Make room available
      */
     public void checkoutRoom() {
         isAvailable = true;
-        System.out.println("Room " + roomNumber + " is now available for booking.");
+        System.out.println("Room " + roomNumber + " is now available.");
     }
     
     /**
-     * Method overloading example - calculate total price
-     * This is the first version with nights parameter only
-     * @param nights Number of nights to stay
-     * @return Total price for the stay
+     * Method overloading - calculate price
      */
-    public double calculateTotalPrice(int nights) {
+    public double calculatePrice(int nights) {
         return pricePerNight * nights;
     }
     
     /**
-     * Method overloading example - calculate total price with discount
-     * This is the second version with nights and discount percentage
-     * @param nights Number of nights to stay
-     * @param discountPercentage Discount percentage to apply
-     * @return Total price after discount
+     * Method overloading - calculate price with discount
      */
-    public double calculateTotalPrice(int nights, double discountPercentage) {
-        double totalPrice = pricePerNight * nights;
-        double discountAmount = totalPrice * (discountPercentage / 100.0);
-        return totalPrice - discountAmount;
+    public double calculatePrice(int nights, double discount) {
+        return pricePerNight * nights * (1 - discount / 100.0);
     }
     
-    /**
-     * Method to check if room is suitable for given number of guests
-     * @param numberOfGuests Number of guests
-     * @return true if room can accommodate the guests
-     */
-    public boolean canAccommodate(int numberOfGuests) {
-        return capacity >= numberOfGuests;
-    }
-    
-    // Getter and Setter methods
-    
+    // Getters and Setters
     public int getRoomNumber() {
         return roomNumber;
     }
@@ -139,13 +108,5 @@ public class Room {
     
     public void setAvailable(boolean available) {
         isAvailable = available;
-    }
-    
-    public int getCapacity() {
-        return capacity;
-    }
-    
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 }
